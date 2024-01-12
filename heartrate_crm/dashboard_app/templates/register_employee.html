@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Heartrate Healthcare CRM DASHBOARD</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- <link rel="stylesheet" type="text/css" href="ss.css"> -->
+</head>
+
+<body>
+     
+    <div class="card text-center" style="padding:20px;">
+        <h3>Heartrate Healthcare CRM DASHBOARD</h3>
+    </div><br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                
+
+                {% if msg %}
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        {{ msg }}
+                        <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% elif e %}
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    {{ e }}
+                    <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% endif %}
+
+                <form action="submit_emp_register" method="POST">
+                {% csrf_token %} 
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" class="form-control" name="name" placeholder="Enter Name" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" class="form-control" name="username" placeholder="Enter Username" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" class="form-control" name="password" placeholder="Enter Password" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="role">Role:</label>
+                        <select class="form-control" name="role" required="">
+                            <option value="">Select Role</option>
+                            <option value="super_admin">Super admin</option>
+                            <option value="admin">Admin</option>
+                            <option value="manager">Manager</option>
+                            <option value="operation">Operation</option>
+                            <option value="hr">HR</option>
+                            <option value="agent">Agent</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <p>Already have an account? <a href="#">Login</a></p>
+                        <input type="submit" name="submit" class="btn btn-primary">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
