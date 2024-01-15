@@ -51,11 +51,21 @@ def submit_emp_register(request):
             name = request.POST.get('name')
             user_name = request.POST.get('username')
             password = request.POST.get('password')
-            role =  request.POST.get('role')       
-            save_data = register_emp(name=name, user_name=user_name, password=password, role=role)
+            role =  request.POST.get('role')
+            dob =  request.POST.get('dob')
+            contact =  request.POST.get('contact')
+            address =  request.POST.get('address')
+            blood_group =  request.POST.get('blood_group')
+            save_data = register_emp(name=name, user_name=user_name, password=password, role=role,contact=contact,  address=address, blood_group=blood_group, dob=dob,)
             save_data.save()
             msg = "Employee registered successfully"
             return render(request, 'register_employee.html', {"msg": msg})
     except Exception as e:
-        e="Invalid Data entered"
+        
         return render(request, 'register_employee.html', {"e": e})
+
+
+def employee_table(request):
+    st=register_emp.objects.all()
+    
+    return render(request,"employees.html",{'data':st})

@@ -34,7 +34,9 @@ class register_emp(models.Model):
         ('hr','hr')
         # Add more choices as needed
     ]
-      role = models.CharField(max_length=24, choices=ROLE_CHOICES)
-
-
+      role = models.CharField(max_length=24, choices=ROLE_CHOICES,default="agent")
+      contact=models.CharField(max_length=24,default="")
+      address=models.TextField(default="")
+      blood_group=models.CharField(max_length=10,default="")
+      dob= models.DateField(null=True)
       

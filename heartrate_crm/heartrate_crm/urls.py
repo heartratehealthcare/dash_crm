@@ -13,6 +13,7 @@ urlpatterns = [
     path('',views.dashboard),
     path('register_employee',views.register_employee),
     path('submit_emp_register',views.submit_emp_register),
+    path('employees_table',views.employee_table),
 
 ]
 
