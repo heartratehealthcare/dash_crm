@@ -6,16 +6,12 @@ from django.db import models
 # Create your models here.
 class candi_form(models.Model):
     name=models.CharField(max_length=24 ,null=True)
-    city=models.CharField(max_length=24,null=True)
-    job_desc=models.CharField(max_length=24,null=True)
-    doj=models.DateField(null=True)
-    STATUS_CHOICES = [
-        ('Approved', 'Approved'),
-        ('Reject', 'Reject'),
-        ('interviewed', 'interviewed'),
-        ('--', '--'),
-    ]
-    status = models.CharField(max_length=12,choices=STATUS_CHOICES,default='--',null =True, blank=True)
+    contact=models.CharField(max_length=24,null=True)
+    address=models.CharField(max_length=24,null=True)
+    dob=models.DateField(null=True)
+    inusurance_id = models.CharField(max_length=10,default='',null =True, blank=True)
+    remark = models.CharField(max_length=45,default='',null =True, blank=True)
+    agent_name=models.CharField(max_length=24,null=True)
 
 def __str__(self):
         return self.candi_form
@@ -40,3 +36,8 @@ class register_emp(models.Model):
       blood_group=models.CharField(max_length=10,default="")
       dob= models.DateField(null=True)
       
+
+class u_table(models.Model):
+      user_name=models.CharField(max_length=24)
+      email=models.CharField(max_length=24)
+      password=models.CharField(max_length=24)

@@ -1,6 +1,36 @@
 from django.shortcuts import render,redirect
-from .models import candi_form , register_emp
+from .models import candi_form , register_emp ,u_table
 from datetime import datetime
+from  django.contrib.auth import authenticate,login 
+from  django.contrib.auth.models import User
+
+def home(request):
+    return render(request,"user_create.html")
+
+def c_user(request):
+    ud=u_table.objects.all()
+    if request.method=="POST":
+        user_name = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        sd=u_table(user_name=user_name,email=email,password=password).save()
+        myuser=User.objects.create_user(user_name,email,password).save()
+    return redirect(login)
+    
+def login_page(request):
+    return render(request,"login.html")
+
+def u_login(request):
+    ud=u_table.objects.all()
+    if request.method=='POST':
+        username=request.POST['username']
+        password=request.POST['password']
+        user = authenticate(username=username,password=password)
+        if user is not None:
+            login(request,user)
+            return redirect(dashboard)
+        return redirect(home)
+
 
 
 def index(request):
@@ -15,10 +45,13 @@ def submit(request):
 
     if request.method == "POST":
         name = request.POST.get('name')
-        c_city = request.POST.get('city')
-        c_job_desc = request.POST.get('job_desc')
-        doj_str = request.POST.get('doj')         
-        save_data = candi_form(name=name, city=c_city, job_desc=c_job_desc, doj=doj_str).save()
+        address = request.POST.get('address')
+        contact = request.POST.get('contact')
+        agent_name = request.POST.get('agent')   
+        dob = request.POST.get('dob')  
+        inusurance_id = request.POST.get('inusurance')   
+        remark = request.POST.get('remark')      
+        save_data = candi_form(name=name, contact=contact, address=address, dob=dob,inusurance_id=inusurance_id,remark=remark,agent_name=agent_name).save()
         return redirect(index)
 
 

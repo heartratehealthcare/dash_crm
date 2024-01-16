@@ -10,10 +10,15 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('index',views.index),
     path('submit',views.submit),
-    path('',views.dashboard),
+    path('',views.home),
+    path('u_login',views.u_login),
     path('register_employee',views.register_employee),
     path('submit_emp_register',views.submit_emp_register),
     path('employees_table',views.employee_table),
+    path('dashboard',views.dashboard),
+    path('c_user',views.c_user),
+    path('login_page',views.login_page),
+    
 
 ]
 
