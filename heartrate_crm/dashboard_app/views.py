@@ -3,9 +3,9 @@ from .models import candi_form , register_emp ,u_table
 from datetime import date,datetime
 from  django.contrib.auth import authenticate,login 
 from  django.contrib.auth.models import User
-from .form import cf_Form
+from .form import cf_Form, cu_form
 from django.contrib.admin.widgets import AdminDateWidget
-from django import forms
+
 
 def home(request):
     return render(request,"user_create.html")
@@ -107,23 +107,20 @@ def employee_table(request):
 #update 
 def edit(request,id):
     data = candi_form.objects.get(id=id)
-    return render(request,'edit_form.html',{'data':data})
+    form=cu_form()
+    return render(request,'edit_form.html',{'form':form,"data":data})
 
     
 
 def update(request,id):
-
     data = candi_form.objects.get(id=id)
     if request.method=="POST":
         rt = candi_form.objects.get(pk=id) 
         form = cf_Form(request.POST,instance=rt)
-        date_string=cf_Form.get('dob')
-        parsed_date = datetime.strptime(date_string, "%b. %d, %Y")
-        formatted_date = parsed_date.strftime("%Y-%m-%d")
         if form.is_valid():
             form.save() 
             return redirect(dashboard)    
-        return render(request,'edit_form.html',{'data':data})
+    return render(request,'edit_form.html',{'form':form,'data':data})
 
 
      
