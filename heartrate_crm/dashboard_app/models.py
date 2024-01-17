@@ -9,12 +9,17 @@ class candi_form(models.Model):
     contact=models.CharField(max_length=24,null=True)
     address=models.CharField(max_length=24,null=True)
     dob=models.DateField(null=True)
-    inusurance_id = models.CharField(max_length=10,default='',null =True, blank=True)
-    remark = models.CharField(max_length=45,default='',null =True, blank=True)
+    inusurance_id = models.CharField(max_length=10,default='',null =True)
+    remark = models.CharField(max_length=45,default='',null =True)
     agent_name=models.CharField(max_length=24,null=True)
+    m_file = models.FileField(upload_to='documents/',null=True)
+    status = models.TextField(default='',null=True)
 
-def __str__(self):
-        return self.candi_form
+    def __str__(self):
+        return self.name
+    
+
+
 
 # employee registration model
 class register_emp(models.Model):

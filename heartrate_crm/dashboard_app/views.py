@@ -1,8 +1,11 @@
 from django.shortcuts import render,redirect
 from .models import candi_form , register_emp ,u_table
-from datetime import datetime
+from datetime import date,datetime
 from  django.contrib.auth import authenticate,login 
 from  django.contrib.auth.models import User
+from .form import cf_Form
+from django.contrib.admin.widgets import AdminDateWidget
+from django import forms
 
 def home(request):
     return render(request,"user_create.html")
@@ -37,9 +40,6 @@ def index(request):
     return render(request,"home.html")
 
 
-
-
-
 def submit(request):
     dt = candi_form.objects.all()
 
@@ -49,7 +49,7 @@ def submit(request):
         contact = request.POST.get('contact')
         agent_name = request.POST.get('agent')   
         dob = request.POST.get('dob')  
-        inusurance_id = request.POST.get('inusurance')   
+        inusurance_id = request.POST.get('Insurance')   
         remark = request.POST.get('remark')      
         save_data = candi_form(name=name, contact=contact, address=address, dob=dob,inusurance_id=inusurance_id,remark=remark,agent_name=agent_name).save()
         return redirect(index)
@@ -60,12 +60,11 @@ def dashboard(request):
     dt=candi_form.objects.all()
     total_emp=register_emp.objects.all().count()
     count_all=candi_form.objects.all().count()
-
-
+    # formatted_date = candi_form.objects.get("dob")
     context = {
         'data':dt,
         'count_all': count_all,
-        'total_emp':total_emp
+        'total_emp':total_emp,
     }
 
     return render(request, 'index.html', context)
@@ -89,7 +88,7 @@ def submit_emp_register(request):
             contact =  request.POST.get('contact')
             address =  request.POST.get('address')
             blood_group =  request.POST.get('blood_group')
-            save_data = register_emp(name=name, user_name=user_name, password=password, role=role,contact=contact,  address=address, blood_group=blood_group, dob=dob,)
+            save_data = register_emp(name=name, user_name=user_name, password=password, role=role,contact=contact,  address=address, blood_group=blood_group, dob=dob)
             save_data.save()
             msg = "Employee registered successfully"
             return render(request, 'register_employee.html', {"msg": msg})
@@ -102,3 +101,45 @@ def employee_table(request):
     st=register_emp.objects.all()
     
     return render(request,"employees.html",{'data':st})
+
+
+
+#update 
+def edit(request,id):
+    data = candi_form.objects.get(id=id)
+    return render(request,'edit_form.html',{'data':data})
+
+    
+
+def update(request,id):
+
+    data = candi_form.objects.get(id=id)
+    if request.method=="POST":
+        rt = candi_form.objects.get(pk=id) 
+        form = cf_Form(request.POST,instance=rt)
+        date_string=cf_Form.get('dob')
+        parsed_date = datetime.strptime(date_string, "%b. %d, %Y")
+        formatted_date = parsed_date.strftime("%Y-%m-%d")
+        if form.is_valid():
+            form.save() 
+            return redirect(dashboard)    
+        return render(request,'edit_form.html',{'data':data})
+
+
+     
+
+# delete data
+def delete(request,id):
+    data=candi_form.objects.get(id=id)
+    data.delete()
+    msg='deleted'
+    return redirect(dashboard)
+
+
+
+
+
+
+
+
+

@@ -7,7 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static '/style.css' %}">
-
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <title>Dashboard</title>
 </head>
@@ -178,82 +177,7 @@
                     </div>
                 </div>
             </div>
-            <div class="doctors">
-                <div class="title">
-                    <h2 class="section--title">Confirm Lead by Employee</h2>
-                    <div class="doctors--right--btns">
-                        <select name="date" id="date" class="dropdown doctor--filter">
-                            <option >Filter</option>
-                            <option value="free">Good lead</option>
-                            <option value="scheduled">Bad lead</option>
-                        </select>
-                        <button class="add"><i class="ri-add-line"></i>Add Employee</button>
-                    </div>
-                </div>
-                <div class="doctors--cards">
-                    <a href="#" class="doctor--card">
-                        <div class="img--box--cover">
-                            <div class="img--box">
-                                <img src="{% static 'images/D1 - copy (2).jpg' %}" alt="">
-                            </div>
-                        </div>
-                        <p class="free">Good lead</p>
-                    </a>
-                    <a href="#" class="doctor--card">
-                        <div class="img--box--cover">
-                            <div class="img--box">
-                                <img src="{% static 'images\D1 - Copy (3).jpg' %}" alt="">
-                            </div>
-                        </div>
-                        <p class="scheduled">Bad lead</p>
-                    </a>
-                    <a href="#" class="doctor--card">
-                        <div class="img--box--cover">
-                            <div class="img--box">
-                                <img src="{% static 'images\D1 - Copy (4).jpg' %}" alt="">
-                            </div>
-                        </div>
-                        <p class="scheduled">Bad lead</p>
-                    </a>
-                    <a href="#" class="doctor--card">
-                        <div class="img--box--cover">
-                            <div class="img--box">
-                                <img src="{% static 'images\D1 - Copy (5).jpg' %}" alt="">
-                            </div>
-                        </div>
-                        <p class="free">Good lead</p>
-                    </a>
-                    <a href="#" class="doctor--card">
-                        <div class="img--box--cover">
-                            <div class="img--box">
-                                <img src="{% static 'images\D1 - Copy (6).jpg' %}" alt="">
-                            </div>
-                        </div>
-                        <p class="scheduled">Bad lead</p>
-                    </a>
-                    <a href="#" class="doctor--card">
-                        <div class="img--box--cover">
-                            <div class="img--box">
-                                <img src="{% static 'images\D1 - Copy (2).jpg' %}" alt="">
-                            </div>
-                        </div>
-                        <p class="free">Good lead</p>
-                    </a>
-                    <a href="#" class="doctor--card">
-                        <div class="img--box--cover">
-                            <div class="img--box">
-                                <img src="{% static 'images\D1 - Copy (2).jpg' %}" alt="">
-                            </div>
-                        </div>
-                        <p class="scheduled">Bad lead</p>
-                    </a>
-                </div>
-            </div>
-            <div class="recent--patients">
-                <div class="title">
-                    <h2 class="section--title">Recent Confirm Lead</h2>
-                    <button class="add"><i class="ri-add-line"></i>Check Here</button>
-                </div>
+
                 <div class="table">
                     <table>
                         <thead>
@@ -265,6 +189,8 @@
                                 <th>Insurance Id</th>
                                 <th>Remark</th>
                                 <th>Agent Name</th>
+                                <th>Action</th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -277,6 +203,10 @@
                                 <td>{{i.inusurance_id}}</td>
                                 <td>{{i.remark}}</td>
                                 <td>{{i.agent_name}}</td>
+                                <td>  
+                                    <a href="/edit/{{ i.id }}" class="btn btn-warning"><i class="bi bi-pencil-fill">edit/</i></a>  
+                                    <a href="/delete/{{ i.id }}" class="btn btn-danger"><i class="bi bi-trash-fill">delete</i></a>  
+                                </td> 
                             </tr>
                             {% endfor %}
                         </tbody>
